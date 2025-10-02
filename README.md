@@ -12,6 +12,17 @@
 - Servido de archivos estáticos desde `server/media/`
 - UI cuidada: topbar, búsqueda tipo “pill”, estados de descarga y acciones inline
 
+## 📸 Capturas de funcionamiento
+
+### Búsqueda de canciones
+![Búsqueda](./src/assets/screen1.png)
+
+### Biblioteca y playlists
+![Biblioteca](./src/assets/screen2.png)
+
+### Reproducción en curso
+![Reproducción](./src/assets/screen3.png)
+
 ## Requisitos
 
 - Node.js 18+
