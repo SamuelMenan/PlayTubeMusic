@@ -1,0 +1,328 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0; /* we'll manage paddings in layout */
+  text-align: left;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.muted { color: #b3b3b3; font-size: 0.95rem; }
+
+/* New styles for music app */
+/* Layout: library left, playlist right; player fixed at bottom */
+.layout-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.columns {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 1rem;
+  padding: 1rem 1rem 96px; /* leave space for bottom bar */
+}
+
+.left-pane, .right-pane { align-self: start; }
+
+.left-pane section, .right-pane section {
+  background: #1f1f1f;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow: hidden; /* clip children so nothing bleeds outside the rounded corner */
+}
+
+.row { display: flex; gap: .5rem; }
+input[type="url"] { flex: 1; }
+
+ul.library, ul.playlist { list-style: none; padding: 0; margin: .5rem 0; display: flex; flex-direction: column; gap: .5rem; }
+/* Equal side gutters for playlist */
+ul.playlist { padding: 0 20px; }
+ul.library li, ul.playlist li { display: grid; grid-template-columns: auto 1fr auto; gap: .5rem; align-items: center; background: #2a2a2a; padding: .5rem; border-radius: 6px; }
+ul.library img { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; }
+ul.library img { cursor: help; }
+.meta { display: flex; flex-direction: column; }
+.actions { display: flex; gap: .5rem; }
+.danger { background: #b91c1c; }
+.icon-btn { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 8px; min-width: unset; }
+.icon-btn .material-symbols-outlined { font-size: 22px; }
+.danger.icon-btn { background: #b91c1c; border: 1px solid #a21515; }
+.danger.icon-btn:hover { background: #a21515; }
+li.active { outline: 2px solid #646cff; }
+.controls { display: flex; gap: .5rem; justify-content: center; margin-top: .5rem; }
+
+/* Library item layout: compact and aligned */
+ul.library li {
+  grid-template-columns: 56px 1fr auto; /* fixed media column */
+  min-height: 56px;
+}
+ul.library li .meta { overflow: hidden; }
+ul.library li .meta strong {
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1; /* 1 line max */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}
+ul.library li .meta small {
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  opacity: .8;
+  text-align: left;
+}
+/* Uniform controls height in Library */
+ul.library li .actions { align-items: center; }
+ul.library li .actions button:not(.icon-btn) {
+  min-width: auto;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  font-size: .95rem;
+  border-radius: 12px;
+}
+/* Delete icon to match height */
+ul.library li .actions .icon-btn {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 12px;
+}
+
+/* Playlist item text should not overflow */
+ul.playlist li { overflow: hidden; }
+ul.playlist li .meta { min-width: 0; overflow: hidden; }
+ul.playlist li .meta strong {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}
+ul.playlist li .meta small {
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  opacity: .8;
+  text-align: left;
+}
+/* Ensure action area and thumb don't shrink oddly */
+ul.playlist li .actions { flex-shrink: 0; }
+ul.playlist li .play-thumb { flex-shrink: 0; }
+
+/* Keep active highlight inside item box, not outside */
+ul.playlist li.active { outline: none; box-shadow: 0 0 0 2px #A21515 inset; }
+
+/* Playlist play button with thumbnail below the icon */
+.play-thumb {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  min-width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.play-thumb .thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.play-thumb .play-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  pointer-events: none; /* click pasa a botón */
+}
+
+.play-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: opacity .15s ease-in-out;
+}
+.play-thumb:hover::after {
+  opacity: 1;
+}
+
+li.active .play-thumb::after {
+  opacity: .35;
+}
+
+/* Player bar (Spotify-like) */
+.player-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 84px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  background: #0f0f0f;
+  border-top: 1px solid #2a2a2a;
+  z-index: 50;
+}
+
+.pb-left { display: flex; align-items: center; gap: .75rem; }
+.pb-left .pb-art { width: 56px; height: 56px; border-radius: 4px; object-fit: cover; }
+.pb-left .pb-meta { display: flex; flex-direction: column; }
+.pb-left .pb-meta strong { line-height: 1.1; }
+.pb-left .pb-meta small { opacity: .75; }
+
+.pb-center { display: flex; flex-direction: column; gap: .25rem; align-items: center; }
+.pb-controls { display: flex; align-items: center; gap: .75rem; }
+.pb-controls .pb-play {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  line-height: 1;
+}
+.pb-controls button.active { color: #1db954; }
+.pb-progress { width: 100%; display: grid; grid-template-columns: auto 1fr auto; gap: .5rem; align-items: center; }
+.pb-progress input[type="range"] { width: 100%; }
+
+.pb-right { display: flex; align-items: center; gap: .5rem; justify-content: flex-end; }
+
+/* Player sliders color */
+.player-bar input[type="range"] {
+  accent-color: #A21515;
+}
+
+/* Search bar */
+/* Full-bleed top bar: extend background to viewport edges while content stays padded */
+.topbar {
+  position: sticky;
+  top: 0;
+  height: 60px; /* 15px top + 50px searchbar + 15px bottom */
+  padding: 15px 8px; /* safe left padding so brand stays visible */
+  z-index: 60;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  /* create stacking context for pseudo background */
+  isolation: isolate;
+}
+.topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#121212, #121212cc);
+  z-index: -1;
+  /* Extend background to viewport edges without layout overflow */
+  box-shadow: 0 0 0 100vmax rgba(18, 18, 18, 0.9);
+  clip-path: inset(0 -100vmax);
+}
+.brand { display: inline-flex; align-items: center; gap: .5rem; margin-left: 0; padding-left: 0; position: relative; z-index: 1; }
+.brand img { width: 40px; height: 40px; object-fit: contain; }
+.brand-title { font-weight: 700; font-size: 24px; letter-spacing: .2px; }
+.searchbar { position: relative; max-width: 100%; margin: 0; }
+.search-input { display: flex; align-items: center; gap: .5rem; background: #0a0a0a; border: 1px solid #2a2a2a; padding: .5rem .75rem; border-radius: 999px; }
+.search-input .icon { opacity: .8; }
+.search-input input { flex: 1; background: transparent; border: 0; outline: none; color: #fff; }
+.search-input .clear { background: transparent; }
+
+.search-dropdown { position: absolute; left: 0; right: 0; margin-top: .5rem; background: #181818; border: 1px solid #2a2a2a; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.5); padding: .75rem; max-height: 60vh; overflow: auto; }
+.search-dropdown .title { font-weight: 700; margin: .25rem .25rem .5rem; }
+.search-dropdown .row {
+  display: grid;
+  grid-template-columns: 56px 1fr 40px;
+  gap: .75rem;
+  align-items: center;
+  padding: .5rem .75rem;
+  min-height: 64px;
+  border-radius: 8px;
+}
+.search-dropdown .row:hover { background: #222; }
+.search-dropdown .row img { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; }
+.search-dropdown .row .meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+.search-dropdown .row .meta small { opacity: .8; }
+/* Avoid stacked text: keep to one line with ellipsis */
+.search-dropdown .row .meta strong,
+.search-dropdown .row .meta small {
+  display: block;
+  white-space: normal;        /* wrap on spaces */
+  overflow-wrap: normal;      /* do not break mid-word unless needed */
+  word-break: normal;         /* avoid breaking each letter */
+  hyphens: none;
+}
+.search-dropdown .row .meta strong { font-size: 1rem; line-height: 1.25; }
+.search-dropdown .row .meta small { opacity: .8; line-height: 1.2; }
+.search-dropdown .row .icon-btn { justify-self: end; width: 36px; height: 36px; min-width: 36px; border: 1px solid #3a3a3a; border-radius: 8px; }
+
+/* Material Symbols tuning */
+.material-symbols-outlined { vertical-align: middle; font-size: 22px; line-height: 1; }
+.pb-controls .pb-play .material-symbols-outlined { font-variation-settings: 'FILL' 1; font-size: 26px; }
+.actions .material-symbols-outlined { font-size: 18px; }
+.play-thumb .play-icon { font-size: 26px; }
+
+/* (toast styles removed) */
