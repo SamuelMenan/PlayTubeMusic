@@ -127,7 +127,3 @@ my-app/
 
 - Frontend: Vercel/Netlify/Cloudflare Pages (necesitarás apuntar a un backend público y ajustar `API_BASE`/proxy)
 - Backend: Render/Railway/Fly.io. Necesitarás `yt-dlp` y FFmpeg instalados en el contenedor/instancia.
-
-## Licencia
-
-MIT — Usa y adapta libremente.
